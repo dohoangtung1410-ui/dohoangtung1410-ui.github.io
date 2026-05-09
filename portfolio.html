@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đỗ Hoàng Tùng — Network & System Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #0f1526;
+  --bg3: #161d35;
+  --surface: #1a2340;
+  --surface2: #1f2a4a;
+  --border: rgba(100,140,255,0.15);
+  --border2: rgba(100,140,255,0.3);
+  --accent: #4f8eff;
+  --accent2: #00d4aa;
+  --accent3: #ff6b6b;
+  --text: #e8eeff;
+  --text2: #8a9bcc;
+  --text3: #5a6b99;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79,142,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,142,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+/* NAV */
+nav {
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,14,26,0.9);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-family: var(--mono);
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* HERO */
+.hero {
+  padding: 5rem 0 4rem;
+  border-bottom: 1px solid var(--border);
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent2);
+  border: 1px solid rgba(0,212,170,0.3);
+  background: rgba(0,212,170,0.08);
+  padding: 4px 14px;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.08em;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent2);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-role {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+.hero-desc {
+  font-size: 17px;
+  color: var(--text2);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.hero-desc strong { color: var(--text); font-weight: 500; }
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: var(--radius);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+.btn-primary:hover { background: #3a7aee; }
+.btn-outline {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+/* SECTIONS */
+section {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.section-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+.skill-group:hover { border-color: var(--border2); }
+.skill-group-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.dot-blue { background: var(--accent); }
+.dot-green { background: var(--accent2); }
+.dot-red { background: var(--accent3); }
+.dot-amber { background: #ffb347; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--bg3);
+  color: var(--text2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* PROJECTS */
+.projects-list { display: flex; flex-direction: column; gap: 2rem; }
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.project-card:hover { border-color: var(--border2); }
+.project-header {
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.project-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+.project-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.project-badge {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+.badge-blue { color: var(--accent); border-color: rgba(79,142,255,0.4); background: rgba(79,142,255,0.08); }
+.badge-green { color: var(--accent2); border-color: rgba(0,212,170,0.4); background: rgba(0,212,170,0.08); }
+.badge-red { color: var(--accent3); border-color: rgba(255,107,107,0.4); background: rgba(255,107,107,0.08); }
+
+.project-body { padding: 1.5rem 1.75rem; }
+
+.star-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+@media(max-width:600px){ .star-grid { grid-template-columns: 1fr; } }
+
+.star-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.star-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.star-item p {
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.star-item.full-width { grid-column: 1 / -1; }
+
+.subsection-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin: 1.5rem 0 0.75rem;
+}
+
+.tech-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: 1.5rem;
+}
+.tech-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg3);
+}
+.tech-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+}
+.tech-table tr:last-child td { border-bottom: none; }
+.tech-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+}
+.feature-list li {
+  font-size: 13.5px;
+  color: var(--text2);
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.6;
+}
+.feature-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.outcomes-box {
+  background: linear-gradient(135deg, rgba(0,212,170,0.05), rgba(79,142,255,0.05));
+  border: 1px solid rgba(0,212,170,0.2);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+.outcomes-box .out-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--accent2);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.outcomes-box p { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+.outcomes-box strong { color: var(--accent2); font-weight: 500; }
+
+/* CODE BLOCK */
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+.code-dot { width: 10px; height: 10px; border-radius: 50%; }
+.code-dot-r { background: #ff5f56; }
+.code-dot-y { background: #ffbd2e; }
+.code-dot-g { background: #27c93f; }
+.code-filename {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-left: auto;
+  letter-spacing: 0.04em;
+}
+.code-block pre {
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--text2);
+}
+.kw { color: #c792ea; }
+.str { color: #c3e88d; }
+.cm { color: #546e7a; }
+.val { color: #f78c6c; }
+.key { color: var(--accent); }
+.fn { color: var(--accent2); }
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.contact-card:hover { border-color: var(--accent); background: var(--surface2); }
+.contact-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.contact-label { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+.contact-value { font-size: 13px; color: var(--text); }
+
+/* FOOTER */
+footer {
+  padding: 2rem 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+footer span { color: var(--accent); }
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-logo">~/dohoangtung</div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="container">
+    <div class="hero-badge">Available for Internship / Fresher Roles</div>
+    <h1>Đỗ Hoàng <span>Tùng</span></h1>
+    <p class="hero-role">// Network & System Engineer — Intern/Fresher</p>
+    <p class="hero-desc">
+      Không chỉ học lý thuyết — tôi <strong>xây dựng lab thực tế</strong>, viết automation code, và <strong>tấn công hệ thống của chính mình</strong> để hiểu cách phòng thủ thực sự hoạt động. Từ cấu hình HSRP trên Cisco L3 Switch đến mô phỏng Evil-Twin attack bằng Kali Linux, mỗi dự án là một bài kiểm thử tư duy kỹ thuật trong môi trường gần với thực tế nhất.
+      <br><br>
+      Tôi tin rằng một kỹ sư giỏi không phải là người nhớ nhiều lệnh nhất — mà là người <strong>hiểu tại sao</strong> mỗi lệnh tồn tại và <strong>biết khi nào</strong> cần tự động hóa chúng.
+    </p>
+    <div class="hero-cta">
+      <a href="https://github.com/dohoangtung1410-ui/CV.git" target="_blank" class="btn btn-primary">⌥ GitHub Projects</a>
+      <a href="#projects" class="btn btn-outline">View Portfolio ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-tag">// expertise</div>
+    <h2 class="section-title">Kỹ năng kỹ thuật</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <div class="skill-dot dot-blue"></div>
+          <span style="color:var(--text3)">Networking</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Cisco IOS</span>
+          <span class="skill-tag">Routing (OSPF/EIGRP)</span>
+          <span class="skill-tag">Switching (VLANs/STP)</span>
+          <span class="skill-tag">HSRP/VRRP</span>
+          <span class="skill-tag">3-Layer Architecture</span>
+          <span class="skill-tag">EVE-NG</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <div class="skill-dot dot-green"></div>
+          <span style="color:var(--text3)">Server Administration</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Ubuntu Server</span>
+          <span class="skill-tag">CentOS</span>
+          <span class="skill-tag">Windows Server (AD DS)</span>
+          <span class="skill-tag">Nginx / MariaDB</span>
+          <span class="skill-tag">SSH Hardening</span>
+          <span class="skill-tag">UFW / Fail2Ban</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <div class="skill-dot dot-amber"></div>
+          <span style="color:var(--text3)">Automation / Tools</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Ansible</span>
+          <span class="skill-tag">Jinja2 Templates</span>
+          <span class="skill-tag">YAML Playbooks</span>
+          <span class="skill-tag">Bash Scripting</span>
+          <span class="skill-tag">Cronjob</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <div class="skill-dot dot-red"></div>
+          <span style="color:var(--text3)">Security</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">802.1X / EAP-TLS</span>
+          <span class="skill-tag">RADIUS / NPS</span>
+          <span class="skill-tag">Digital Certificate (PKI)</span>
+          <span class="skill-tag">Kali Linux</span>
+          <span class="skill-tag">Evil-Twin Analysis</span>
+          <span class="skill-tag">Hostapd-mana</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-tag">// projects</div>
+    <h2 class="section-title">Dự án nổi bật</h2>
+    <div class="projects-list">
+
+      <!-- PROJECT 1 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-number">PROJECT_01</div>
+            <div class="project-title">Network Automation với Ansible & HSRP</div>
+          </div>
+          <div class="project-badge badge-blue">AUTOMATION</div>
+        </div>
+        <div class="project-body">
+          <div class="star-grid">
+            <div class="star-item">
+              <div class="star-label">⬡ Situation</div>
+              <p>Môi trường doanh nghiệp cần High Availability cho Default Gateway. Cấu hình thủ công gây ra sai sót, mất nhiều thời gian và thiếu nhất quán giữa các thiết bị trong mô hình mạng 3 lớp.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-label">⬡ Task</div>
+              <p>Thiết kế và triển khai giải pháp HSRP tự động hóa hoàn toàn bằng Ansible trên Cisco L3 Switch, đảm bảo Idempotency và khả năng Failover tức thời.</p>
+            </div>
+            <div class="star-item full-width">
+              <div class="star-label">⬡ Action</div>
+              <p>Thiết kế topology 3-layer trên EVE-NG → Viết Ansible Playbook với Jinja2 template để tự động push cấu hình HSRP, IP, Interface → Thiết lập Priority/Preempt để kiểm soát Active/Standby → Test Failover bằng cách ngắt thiết bị Active và quan sát convergence time.</p>
+            </div>
+          </div>
+
+          <div class="subsection-title">Tech Stack</div>
+          <table class="tech-table">
+            <thead><tr><th>Công nghệ</th><th>Vai trò</th><th>Chi tiết</th></tr></thead>
+            <tbody>
+              <tr><td>Ansible 2.x</td><td>Automation Engine</td><td>Playbook YAML, ios_config module</td></tr>
+              <tr><td>Jinja2</td><td>Config Templating</td><td>Chuẩn hóa cấu hình interface/HSRP</td></tr>
+              <tr><td>Cisco IOS</td><td>Target Platform</td><td>L3 Switch, HSRP, SVI configuration</td></tr>
+              <tr><td>EVE-NG</td><td>Lab Environment</td><td>Mô phỏng topology 3-lớp thực tế</td></tr>
+            </tbody>
+          </table>
+
+          <div class="subsection-title">Key Implementation</div>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dot code-dot-r"></div>
+              <div class="code-dot code-dot-y"></div>
+              <div class="code-dot code-dot-g"></div>
+              <div class="code-filename">hsrp_playbook.yml</div>
+            </div>
+            <pre><span class="cm"># Ansible Playbook — HSRP Auto-Configuration</span>
+<span class="key">---</span>
+<span class="kw">- name</span>: <span class="str">Configure HSRP on L3 Distribution Switches</span>
+  <span class="kw">hosts</span>: <span class="str">distribution_switches</span>
+  <span class="kw">gather_facts</span>: <span class="val">no</span>
+  <span class="kw">vars_files</span>:
+    - <span class="str">vars/network_vars.yml</span>
+
+  <span class="kw">tasks</span>:
+    - <span class="kw">name</span>: <span class="str">Configure SVI Interface</span>
+      <span class="fn">cisco.ios.ios_config</span>:
+        <span class="kw">lines</span>:
+          - <span class="str">"ip address {{ item.ip }} {{ item.mask }}"</span>
+          - <span class="str">"no shutdown"</span>
+        <span class="kw">parents</span>: <span class="str">"interface {{ item.vlan_int }}"</span>
+      <span class="kw">loop</span>: <span class="str">"{{ svi_interfaces }}"</span>
+
+    - <span class="kw">name</span>: <span class="str">Apply HSRP Configuration (Jinja2 Template)</span>
+      <span class="fn">cisco.ios.ios_config</span>:
+        <span class="kw">src</span>: <span class="str">templates/hsrp.j2</span>
+      <span class="kw">notify</span>: <span class="str">Save Config</span>
+
+  <span class="kw">handlers</span>:
+    - <span class="kw">name</span>: <span class="str">Save Config</span>
+      <span class="fn">cisco.ios.ios_command</span>:
+        <span class="kw">commands</span>: <span class="str">write memory</span></pre>
+          </div>
+
+          <div class="subsection-title">Outcomes</div>
+          <div class="outcomes-box">
+            <div class="out-label">✓ Results</div>
+            <p>Giảm <strong>90% thời gian cấu hình thủ công</strong> — từ ~45 phút xuống còn ~4 phút cho toàn bộ stack. Đảm bảo <strong>Idempotency</strong> (chạy nhiều lần không gây lỗi cấu hình). Gateway Failover được kiểm chứng với thời gian hội tụ dưới 3 giây. Playbook có thể tái sử dụng cho bất kỳ môi trường tương tự nào chỉ bằng cách thay đổi file biến.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-number">PROJECT_02</div>
+            <div class="project-title">Wi-Fi Security — RADIUS 802.1X & Evil-Twin Lab</div>
+          </div>
+          <div class="project-badge badge-red">SECURITY</div>
+        </div>
+        <div class="project-body">
+          <div class="star-grid">
+            <div class="star-item">
+              <div class="star-label">⬡ Situation</div>
+              <p>Wi-Fi doanh nghiệp sử dụng PSK (Pre-Shared Key) dễ bị tấn công Evil-Twin và credential theft. Không có cơ chế xác thực tập trung hay audit log truy cập.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-label">⬡ Task</div>
+              <p>Triển khai hạ tầng xác thực 802.1X tích hợp Active Directory và kiểm chứng hiệu quả phòng thủ bằng cách tự thực hiện tấn công Evil-Twin trong môi trường lab kiểm soát.</p>
+            </div>
+            <div class="star-item full-width">
+              <div class="star-label">⬡ Action</div>
+              <p>Cấu hình Windows Server NPS làm RADIUS server → Tích hợp AD DS để xác thực user domain → Triển khai 802.1X với EAP-TLS/PEAP và cấp Digital Certificate qua CA nội bộ → Mô phỏng Evil-Twin bằng Kali Linux (Hostapd-mana + Dnsmasq) → Phân tích traffic và xác nhận certificate validation block cuộc tấn công.</p>
+            </div>
+          </div>
+
+          <div class="subsection-title">Tech Stack</div>
+          <table class="tech-table">
+            <thead><tr><th>Công nghệ</th><th>Vai trò</th><th>Chi tiết</th></tr></thead>
+            <tbody>
+              <tr><td>Windows Server NPS</td><td>RADIUS Server</td><td>Network Policy Server, xác thực tập trung</td></tr>
+              <tr><td>Active Directory</td><td>Identity Provider</td><td>AD DS, Group Policy, Certificate Authority</td></tr>
+              <tr><td>802.1X / EAP-TLS</td><td>Auth Protocol</td><td>Mutual authentication bằng Digital Certificate</td></tr>
+              <tr><td>Kali Linux</td><td>Attack Simulation</td><td>Hostapd-mana, Dnsmasq, Wireshark</td></tr>
+            </tbody>
+          </table>
+
+          <div class="subsection-title">Attack Simulation — Evil-Twin Flow</div>
+          <ul class="feature-list">
+            <li>Tạo Rogue AP với SSID trùng tên mạng hợp lệ bằng <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)">hostapd-mana</code></li>
+            <li>Cấp DHCP giả mạo cho client kết nối vào Rogue AP qua <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)">dnsmasq</code></li>
+            <li>Capture handshake EAP và thử MITM credential extraction</li>
+            <li><strong style="color:var(--accent2)">Kết quả:</strong> Client từ chối kết nối vì Certificate của Rogue AP không được CA nội bộ ký — tấn công thất bại hoàn toàn</li>
+          </ul>
+
+          <div class="subsection-title">Outcomes</div>
+          <div class="outcomes-box">
+            <div class="out-label">✓ Results</div>
+            <p>Ngăn chặn thành công <strong>100% Rogue AP</strong> qua certificate validation. Triển khai quản lý tập trung toàn bộ log xác thực qua NPS Event Log. Chứng minh thực tế rằng <strong>EAP-TLS với PKI</strong> là lớp bảo vệ hiệu quả nhất trước Evil-Twin attack so với PSK thông thường.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-number">PROJECT_03</div>
+            <div class="project-title">Web Infrastructure — LEMP Stack Hardening</div>
+          </div>
+          <div class="project-badge badge-green">SYSADMIN</div>
+        </div>
+        <div class="project-body">
+          <div class="star-grid">
+            <div class="star-item">
+              <div class="star-label">⬡ Situation</div>
+              <p>Hệ thống web nội bộ cần được triển khai trên Linux với bảo mật cao, tránh các cuộc tấn công brute-force phổ biến và có khả năng tự phục hồi dữ liệu khi sự cố xảy ra.</p>
+            </div>
+            <div class="star-item">
+              <div class="star-label">⬡ Task</div>
+              <p>Build và harden toàn bộ LEMP Stack từ zero trên Ubuntu Server, áp dụng nguyên tắc Principle of Least Privilege và Whitelist-only access policy.</p>
+            </div>
+            <div class="star-item full-width">
+              <div class="star-label">⬡ Action</div>
+              <p>Cài đặt Nginx + MariaDB + PHP trên Ubuntu Server → SSH Hardening (đổi port, disable password auth, SSH Key only) → Cấu hình UFW theo Whitelist policy → Deploy Fail2Ban với ruleset tùy chỉnh → Viết Bash script tự động backup daily với Cronjob.</p>
+            </div>
+          </div>
+
+          <div class="subsection-title">Tech Stack</div>
+          <table class="tech-table">
+            <thead><tr><th>Component</th><th>Technology</th><th>Hardening Applied</th></tr></thead>
+            <tbody>
+              <tr><td>Web Server</td><td>Nginx</td><td>Disable server_tokens, custom error pages</td></tr>
+              <tr><td>Database</td><td>MariaDB</td><td>mysql_secure_installation, dedicated DB user</td></tr>
+              <tr><td>Runtime</td><td>PHP-FPM</td><td>Restrict functions, expose_php = off</td></tr>
+              <tr><td>Firewall</td><td>UFW</td><td>Whitelist: 80/443/SSH-custom only</td></tr>
+              <tr><td>IDS</td><td>Fail2Ban</td><td>SSH + Nginx jail, ban 1h after 5 fails</td></tr>
+            </tbody>
+          </table>
+
+          <div class="subsection-title">Auto-Backup Script</div>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dot code-dot-r"></div>
+              <div class="code-dot code-dot-y"></div>
+              <div class="code-dot code-dot-g"></div>
+              <div class="code-filename">backup.sh</div>
+            </div>
+            <pre><span class="cm">#!/bin/bash</span>
+<span class="cm"># Daily Backup Script — DB + Source Code</span>
+<span class="cm"># Cronjob: 0 2 * * * /opt/scripts/backup.sh</span>
+
+<span class="key">TIMESTAMP</span>=<span class="str">$(date +%Y%m%d_%H%M%S)</span>
+<span class="key">BACKUP_DIR</span>=<span class="str">"/var/backups/webapp"</span>
+<span class="key">WEBROOT</span>=<span class="str">"/var/www/html"</span>
+<span class="key">DB_NAME</span>=<span class="str">"production_db"</span>
+<span class="key">RETAIN_DAYS</span>=<span class="val">7</span>
+
+<span class="cm"># Create backup directory</span>
+<span class="fn">mkdir</span> -p <span class="str">"${BACKUP_DIR}/${TIMESTAMP}"</span>
+
+<span class="cm"># Dump MariaDB</span>
+<span class="fn">mysqldump</span> --single-transaction <span class="str">"${DB_NAME}"</span> \
+  | <span class="fn">gzip</span> > <span class="str">"${BACKUP_DIR}/${TIMESTAMP}/db.sql.gz"</span>
+
+<span class="cm"># Archive source code</span>
+<span class="fn">tar</span> -czf <span class="str">"${BACKUP_DIR}/${TIMESTAMP}/webroot.tar.gz"</span> \
+  -C <span class="str">"${WEBROOT}"</span> .
+
+<span class="cm"># Remove backups older than RETAIN_DAYS</span>
+<span class="fn">find</span> <span class="str">"${BACKUP_DIR}"</span> -maxdepth <span class="val">1</span> -mtime +<span class="str">"${RETAIN_DAYS}"</span> \
+  -exec <span class="fn">rm</span> -rf {} \;
+
+<span class="fn">echo</span> <span class="str">"[OK] Backup completed: ${TIMESTAMP}"</span></pre>
+          </div>
+
+          <div class="subsection-title">Outcomes</div>
+          <div class="outcomes-box">
+            <div class="out-label">✓ Results</div>
+            <p>Hệ thống chịu đựng thành công các cuộc tấn công <strong>port scan và brute-force</strong> trong môi trường test (Fail2Ban block 100% sau 5 lần thử). Backup tự động chạy <strong>hàng ngày lúc 2AM</strong>, lưu trữ 7 ngày rolling. Recovery time từ backup dưới 5 phút. SSH attack surface giảm đáng kể nhờ custom port + key-only auth.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-tag">// connect</div>
+    <h2 class="section-title">Liên hệ</h2>
+    <p style="color:var(--text2);margin-bottom:2rem;max-width:500px;">Đang tìm kiếm cơ hội thực tập hoặc vị trí Fresher trong lĩnh vực Network/System Engineering. Sẵn sàng học hỏi và đóng góp ngay từ ngày đầu.</p>
+    <div class="contact-grid">
+      <a href="https://github.com/dohoangtung1410-ui/CV.git" target="_blank" class="contact-card">
+        <div class="contact-icon">⌥</div>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">dohoangtung1410-ui</div>
+        </div>
+      </a>
+      <div class="contact-card" style="cursor:default;">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">dohoangtung1410@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-card" style="cursor:default;">
+        <div class="contact-icon">◎</div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Việt Nam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Built with precision by <span>Đỗ Hoàng Tùng</span> · Network & System Engineer · 2025</p>
+  </div>
+</footer>
+
+</body>
+</html>
